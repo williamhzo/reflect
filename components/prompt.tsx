@@ -12,6 +12,7 @@ import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
+import { useAuth } from '@clerk/nextjs';
 
 const formSchema = z.object({
   answer: z.string().min(2, 'required').max(250, 'too long'),
@@ -24,7 +25,7 @@ type PromptProps = PropsWithChildren & {
 };
 
 export const Prompt: FC<PromptProps> = ({ promptId }) => {
-  const prompt = PROMPTS[promptId - 1];
+  const prompt = PROMPTS[promptId];
   const router = useRouter();
 
   const hasNextPrompt = promptId < PROMPTS.length - 1;
@@ -42,12 +43,21 @@ export const Prompt: FC<PromptProps> = ({ promptId }) => {
     },
   });
 
+  const { isSignedIn } = useAuth();
+
   const onSubmit: SubmitHandler<FormValues> = useCallback(
     ({ answer }) => {
       console.log('answer', answer);
-      router.push(hasNextPrompt ? `/${promptId + 1}` : '/submitted');
+
+      if (!hasNextPrompt) {
+        router.push('/submitted');
+      } else if (isSignedIn) {
+        router.push(`/${promptId + 1}`);
+      } else {
+        router.push(`/demo/${promptId + 1}`);
+      }
     },
-    [hasNextPrompt, promptId, router]
+    [hasNextPrompt, isSignedIn, promptId, router]
   );
 
   useEffect(() => {
