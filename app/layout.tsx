@@ -1,7 +1,9 @@
+import { ThemeProvider } from '@/components/theme-provider';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ReactNode } from 'react';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -13,7 +15,24 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="flex flex-col">
+            <header className="flex items-center justify-between p-4">
+              <h1 className="text-lg">reflect</h1>
+              <ThemeToggle />
+            </header>
+            <main className="flex flex-col items-start p-4 justify-start pt-24 gap-4">
+              {children}
+            </main>
+          </div>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
