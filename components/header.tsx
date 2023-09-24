@@ -3,13 +3,15 @@
 import { ThemeToggle } from '@/components/theme-toggle';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { UserButton } from '@clerk/nextjs';
 import { useAuth } from '@clerk/nextjs';
+import { useClerk } from '@clerk/clerk-react';
+import { Button } from '@/components/ui/button';
 
 export const Header = () => {
   const pathname = usePathname();
   const { isSignedIn } = useAuth();
-  const showUserButton = isSignedIn && pathname === '/';
+  const showAuth = isSignedIn && pathname === '/';
+  const { signOut } = useClerk();
 
   return (
     <header className="flex w-full items-center justify-between p-4">
@@ -17,8 +19,8 @@ export const Header = () => {
         reflect
       </Link>
       <div className="flex gap-4">
-        {showUserButton ? (
-          <UserButton afterSignOutUrl="/" />
+        {showAuth ? (
+          <Button onClick={() => signOut()}>sign out</Button>
         ) : (
           <Link
             href="/sign-up"

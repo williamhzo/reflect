@@ -15,21 +15,20 @@ export default function Page() {
         <span className="text-muted-foreground">great reflection</span>
       </h1>
 
-      {!isSignedIn && (
+      {isSignedIn ? (
+        <Link href="/past">
+          <CalendarIcon className="w-4 h-4" />
+        </Link>
+      ) : (
         <p className="font-light mt-12 text-center px-8">
           <Link href="/sign-in" className="font-medium">
             create an account
           </Link>{' '}
-          to{' '}
-          <span className="text-muted-foreground">save your reflections</span>{' '}
-          and <span className="text-muted-foreground">build up the habit</span>{' '}
-          of daily journaling.
+          to save your reflections and{' '}
+          <span className="text-muted-foreground">build up the habit</span> of
+          daily journaling.
         </p>
       )}
-
-      {/* <Link href="/past">
-        <CalendarIcon className="w-4 h-4" />
-      </Link> */}
     </section>
   );
 }

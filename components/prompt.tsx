@@ -27,7 +27,7 @@ export const Prompt: FC<PromptProps> = ({ promptId }) => {
   const prompt = PROMPTS[promptId - 1];
   const router = useRouter();
 
-  const hasNextPrompt = promptId < PROMPTS.length;
+  const hasNextPrompt = promptId < PROMPTS.length - 1;
 
   const {
     register,
