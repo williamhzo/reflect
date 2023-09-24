@@ -8,5 +8,5 @@ export default function Page({ params }: { params: { id: string } }) {
     throw new Error(`invalid route param! got ${params.id}`);
   }
 
-  return <Prompt label={prompt} />;
+  return <Prompt promptId={+params.id} />;
 }
