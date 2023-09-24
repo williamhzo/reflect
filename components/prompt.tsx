@@ -11,6 +11,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
 
 const formSchema = z.object({
   answer: z.string().min(2, 'required').max(250, 'too long'),
@@ -67,14 +68,18 @@ export const Prompt: FC<PromptProps> = ({ promptId }) => {
   }, [handleSubmit, onSubmit]);
 
   return (
-    <form
+    <motion.form
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-4 w-full"
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 50 }}
+      transition={{ duration: 0.5 }}
     >
       <Label htmlFor="answer">{prompt}</Label>
 
       {errors.answer && (
-        <span className="text-destructive-foreground text-sm">
+        <span className="text-muted-foreground text-sm">
           {errors.answer.message}
         </span>
       )}
@@ -93,6 +98,6 @@ export const Prompt: FC<PromptProps> = ({ promptId }) => {
           <CheckIcon className="h-4 w-4" />
         </Button>
       </div>
-    </form>
+    </motion.form>
   );
 };
