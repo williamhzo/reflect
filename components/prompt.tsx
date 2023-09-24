@@ -53,10 +53,9 @@ export const Prompt: FC<PromptProps> = ({ promptId }) => {
     setFocus('answer');
   }, [setFocus]);
 
-  // on enter key press, submit form
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.key === 'Enter') {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
         e.preventDefault();
         handleSubmit(onSubmit)();
       }

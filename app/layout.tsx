@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ReactNode } from 'react';
 import { ThemeToggle } from '@/components/theme-toggle';
+import Link from 'next/link';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -24,7 +25,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         >
           <div className="flex flex-col items-center">
             <header className="flex w-full items-center justify-between p-4">
-              <h1 className="text-lg">reflect</h1>
+              <Link href="/" className="text-lg">
+                reflect
+              </Link>
               <ThemeToggle />
             </header>
             <main className="flex flex-col w-full p-4 justify-start pt-24 gap-4 max-w-3xl">
