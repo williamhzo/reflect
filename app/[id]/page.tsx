@@ -1,4 +1,4 @@
-import { Prompt } from '@/components/prrompt';
+import { Prompt } from '@/components/prompt';
 import { PROMPTS } from '@/lib/constants';
 
 export default function Page({ params }: { params: { id: string } }) {
