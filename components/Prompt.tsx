@@ -16,10 +16,10 @@ export const Prompt: FC<PromptProps> = ({ label }) => {
   }, []);
 
   return (
-    <form className="flex flex-col gap-4">
-      <Label>{label}</Label>
+    <form className="flex flex-col gap-4 w-full">
+      <Label htmlFor="prompt">{label}</Label>
 
-      <Textarea ref={inputRef} />
+      <Textarea id="prompt" name="prompt" ref={inputRef} />
     </form>
   );
 };
