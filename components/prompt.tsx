@@ -80,7 +80,7 @@ export const Prompt: FC<PromptProps> = ({ promptId }) => {
       )}
 
       <div className="flex items-start gap-2">
-        <Textarea {...register('answer')} required />
+        <Textarea {...register('answer')} />
         <Button
           className={cn(
             'rounded-full w-11 p-0 disabled:opacity-0 duration-200 transition-opacity',
