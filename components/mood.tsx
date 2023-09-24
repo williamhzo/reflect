@@ -4,11 +4,14 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
+import { FC } from 'react';
+import { useAuth } from '@clerk/nextjs';
 
 const MOOD = [-2, -1, 0, 1, 2];
 
-export default function Mood() {
+export const Mood: FC = () => {
   const router = useRouter();
+  const { isSignedIn } = useAuth();
 
   return (
     <motion.div
@@ -24,7 +27,9 @@ export default function Mood() {
         {MOOD.map((mood) => (
           <Button
             variant="outline"
-            onClick={() => router.push('/1')}
+            onClick={() => {
+              router.push(isSignedIn ? '/1' : '/demo/1');
+            }}
             className="w-10"
             key={mood}
           >
@@ -34,4 +39,4 @@ export default function Mood() {
       </div>
     </motion.div>
   );
-}
+};

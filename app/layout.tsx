@@ -3,8 +3,8 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ReactNode } from 'react';
-import { ThemeToggle } from '@/components/theme-toggle';
-import Link from 'next/link';
+import { ClerkProvider } from '@clerk/nextjs';
+import { Header } from '@/components/header';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -15,27 +15,24 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="flex flex-col items-center">
-            <header className="flex w-full items-center justify-between p-4">
-              <Link href="/" className="text-lg">
-                reflect
-              </Link>
-              <ThemeToggle />
-            </header>
-            <main className="flex flex-col w-full p-4 justify-start pt-24 gap-4 max-w-3xl">
-              {children}
-            </main>
-          </div>
-        </ThemeProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <div className="flex flex-col items-center">
+              <Header />
+              <main className="flex flex-col w-full p-4 justify-start pt-24 gap-4 max-w-3xl">
+                {children}
+              </main>
+            </div>
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
