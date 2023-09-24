@@ -27,7 +27,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <h1 className="text-lg">reflect</h1>
               <ThemeToggle />
             </header>
-            <main className="flex flex-col items-start p-4 justify-start pt-24 gap-4 max-w-3xl">
+            <main className="flex flex-col w-full p-4 justify-start pt-24 gap-4 max-w-3xl">
               {children}
             </main>
           </div>

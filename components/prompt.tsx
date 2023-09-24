@@ -13,7 +13,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@/lib/utils';
 
 const formSchema = z.object({
-  answer: z.string().min(2).max(250),
+  answer: z.string().min(2, 'required').max(250, 'too long'),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -42,8 +42,11 @@ export const Prompt: FC<PromptProps> = ({ promptId }) => {
   });
 
   const onSubmit: SubmitHandler<FormValues> = useCallback(
-    (values) => console.log('submit', values.answer),
-    []
+    ({ answer }) => {
+      console.log('answer', answer);
+      router.push(hasNextPrompt ? `/${promptId + 1}` : '/submitted');
+    },
+    [hasNextPrompt, promptId, router]
   );
 
   useEffect(() => {
@@ -55,7 +58,7 @@ export const Prompt: FC<PromptProps> = ({ promptId }) => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if (e.key === 'Enter') {
         e.preventDefault();
-        handleSubmit(onSubmit);
+        handleSubmit(onSubmit)();
       }
     };
 
@@ -64,12 +67,9 @@ export const Prompt: FC<PromptProps> = ({ promptId }) => {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [handleSubmit, onSubmit]);
 
-  const hasValue = !!watch('answer');
-  console.log(hasValue);
-
   return (
     <form
-      // onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-4 w-full"
     >
       <Label htmlFor="answer">{prompt}</Label>
@@ -84,13 +84,12 @@ export const Prompt: FC<PromptProps> = ({ promptId }) => {
         <Textarea {...register('answer')} required />
         <Button
           className={cn(
-            'rounded-full w-12 p-0 disabled:opacity-0 duration-200 transition-opacity',
-            hasValue ? 'opacity-100' : 'opacity-0 pointer-events-none'
+            'rounded-full w-11 p-0 disabled:opacity-0 duration-200 transition-opacity',
+            !!watch('answer') ? 'opacity-100' : 'opacity-0 pointer-events-none'
           )}
-          disabled={!hasValue}
+          disabled={!watch('answer')}
           variant="outline"
-          type="button"
-          onClick={handleSubmit(onSubmit)}
+          type="submit"
         >
           <CheckIcon className="h-4 w-4" />
         </Button>
