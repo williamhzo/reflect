@@ -1,10 +1,7 @@
-import { Button } from '@/components/ui/button';
+import Mood from '@/components/mood';
+
+const MOOD = [-2, -1, 0, 1, 2];
 
 export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-4">
-      <h1 className="text-3xl">reflect</h1>
-      <Button>Click me</Button>
-    </main>
-  );
+  return <Mood />;
 }
