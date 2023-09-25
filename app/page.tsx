@@ -5,7 +5,9 @@ import Link from 'next/link';
 export default function Home() {
   return (
     <section className="flex flex-col gap-4 items-center">
-      <h1 className="text-4xl font-extralight">take the time to reflect</h1>
+      <h1 className="text-4xl font-extralight text-center">
+        take the time to reflect
+      </h1>
       <h2 className="text-muted-foreground">a tiny app for daily journaling</h2>
       <Link
         href="/demo/0"
