@@ -4,8 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export const Header = () => {
-  const pathname = usePathname();
-
   return (
     <header className="flex w-full items-center justify-between p-4">
       <Link href="/" className="text-lg">
