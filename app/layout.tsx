@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
+import { Header } from "@/components/header";
+import { ThemeProvider } from "next-themes";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +17,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
+        <div className="flex flex-col items-center">
+          <Header />
+          <main className="flex w-full max-w-3xl flex-col justify-start gap-4 p-4 pt-24">
+            {children}
+          </main>
+        </div>
+      </body>
     </html>
   );
 }
